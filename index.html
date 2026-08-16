@@ -15,33 +15,93 @@
         body {
             background-color: #121212;
             color: #ffffff;
-            display: flex;
-            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Sidebar Styling */
+        /* Top Header with Menu Button */
+        .top-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #262626;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-text {
+            color: #ff3333;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* Sidebar Styling (Hidden by default) */
         .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
             width: 260px;
+            height: 100%;
             background-color: #1a1a1a;
             border-right: 1px solid #262626;
             padding: 20px;
             display: flex;
             flex-direction: column;
+            transition: left 0.3s ease;
+            z-index: 1000;
         }
 
-        .sidebar h2 {
-            color: #ff3333;
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 30px;
-            font-size: 22px;
-            letter-spacing: 1px;
+        }
+
+        .sidebar-header h2 {
+            color: #ff3333;
+            font-size: 20px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #fff;
         }
 
         .sidebar ul {
             list-style: none;
+            overflow-y: auto;
         }
 
         .sidebar ul li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .sidebar ul li a {
@@ -59,12 +119,35 @@
             background-color: #ff3333;
         }
 
+        .sidebar-divider {
+            border: 0;
+            height: 1px;
+            background: #262626;
+            margin: 15px 0;
+        }
+
+        /* Overlay background when sidebar is open */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
         /* Main Content Area */
         .main-content {
-            flex: 1;
+            margin-top: 60px;
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
+            min-height: calc(100vh - 60px);
         }
 
         /* Hero Banner */
@@ -86,7 +169,7 @@
 
         /* Content Container */
         .content-container {
-            padding: 40px;
+            padding: 40px 20px;
             max-width: 900px;
             margin: 0 auto;
             width: 100%;
@@ -158,17 +241,36 @@
 </head>
 <body>
 
-    <!-- সাইডবার মেনু -->
-    <div class="sidebar">
-        <h2>AppleMC</h2>
+    <!-- টপ হেডার (যেখানে মেনু বাটন থাকবে) -->
+    <header class="top-header">
+        <button class="menu-btn" id="menuToggle">
+            <span>≡ Menu</span>
+        </button>
+        <div class="logo-text">AppleMC</div>
+    </header>
+
+    <!-- ওভারলে (সাইডবার খুললে পেছনের স্ক্রিন অন্ধকার করার জন্য) -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- সাইডবার মেনু (যা ক্লিক করলে ওপেন হবে) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>AppleMC</h2>
+            <button class="close-btn" id="closeSidebar">&times;</button>
+        </div>
         <ul>
             <li><a href="#" class="active">Home</a></li>
             <li><a href="#">Rules</a></li>
             <li><a href="#">Vote</a></li>
-            <li><a href="#">Map</a></li>
+            <li><a href="#">Discord</a></li>
             <li><a href="#">Store</a></li>
             <li><a href="#">Staff</a></li>
             <li><a href="#">Apply</a></li>
+        </ul>
+        <hr class="sidebar-divider">
+        <ul>
+            <li><a href="#">Log In</a></li>
+            <li><a href="#">Register</a></li>
         </ul>
     </div>
 
@@ -199,6 +301,23 @@
             <p>Not affiliated with Mojang or Microsoft.</p>
         </footer>
     </div>
+
+    <!-- জাভাস্ক্রিপ্ট কোড সাইডবার কন্ট্রোল করার জন্য -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        closeSidebar.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+    </script>
 
 </body>
 </html>
