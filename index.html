@@ -1,509 +1,215 @@
 <!DOCTYPE html>
-<html lang="bn" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenfunmc | অফিশিয়াল মাইনক্রাফট সার্ভার</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        zen: {
-                            dark: '#07090e',
-                            card: '#111827',
-                            cardHover: '#1f2937',
-                            accent: '#10b981',
-                            hover: '#059669',
-                            purple: '#8b5cf6'
-                        }
-                    }
-                }
+    <title>Zenphone MC | Official Server</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #141b2d;
+            --accent-color: #00f3ff;
+            --accent-hover: #00bcd4;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+        header {
+            background: #080c14;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover, nav a.active {
+            color: var(--accent-color);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            nav ul {
+                display: none;
             }
         }
-    </script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .glow-effect {
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
         }
-        .gaming-font {
-            letter-spacing: 1px;
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+        .announcement-title {
+            font-size: 1.25rem;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        .author-tag {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--accent-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .announcement-body p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 0.5rem;
+        }
+        .sidebar ul {
+            list-style: none;
+        }
+        .sidebar ul li {
+            margin-bottom: 0.75rem;
+        }
+        .sidebar ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar ul li a:hover {
+            color: var(--accent-color);
+        }
+        .store-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .store-btn {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.75rem;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
+        .store-btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+        .ip-box {
+            background: rgba(0,0,0,0.2);
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--accent-color);
+            text-align: center;
+            margin-top: 0.5rem;
+            border: 1px dashed var(--accent-color);
         }
     </style>
 </head>
-<body class="bg-zen-dark text-gray-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-zen-accent selection:text-gray-900">
-
-    <!-- Navbar -->
-    <header class="bg-zen-card/80 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3 cursor-pointer group" onclick="switchTab('home')">
-                <div class="bg-gradient-to-br from-zen-accent to-emerald-700 p-2.5 rounded-xl text-gray-900 font-black text-xl shadow-lg shadow-emerald-900/40 group-hover:scale-105 transition">
-                    <i class="fas fa-cube"></i>
-                </div>
-                <div>
-                    <span class="text-2xl font-black tracking-wider text-white gaming-font">ZEN<span class="text-zen-accent">FUNMC</span></span>
-                    <div class="flex items-center space-x-1.5 mt-0.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <p class="text-xs text-gray-400">অনলাইন: <span id="online-players" class="text-zen-accent font-bold">২৮</span> প্লেয়ার</p>
-                    </div>
-                </div>
-            </div>
-            
-            <nav class="hidden md:flex space-x-1 lg:space-x-2 font-medium bg-gray-900/60 p-1.5 rounded-xl border border-gray-800">
-                <button onclick="switchTab('home')" class="nav-link px-4 py-2 rounded-lg text-sm transition text-zen-accent bg-gray-800/80 shadow" data-tab="home">হোম</button>
-                <button onclick="switchTab('store')" class="nav-link px-4 py-2 rounded-lg text-sm transition text-gray-300 hover:text-white hover:bg-gray-800/40" data-tab="store">স্টোর</button>
-                <button onclick="switchTab('vote')" class="nav-link px-4 py-2 rounded-lg text-sm transition text-gray-300 hover:text-white hover:bg-gray-800/40" data-tab="vote">ভোট</button>
-                <button onclick="switchTab('leaderboard')" class="nav-link px-4 py-2 rounded-lg text-sm transition text-gray-300 hover:text-white hover:bg-gray-800/40" data-tab="leaderboard">লিডারবোর্ড</button>
-                <button onclick="switchTab('rules')" class="nav-link px-4 py-2 rounded-lg text-sm transition text-gray-300 hover:text-white hover:bg-gray-800/40" data-tab="rules">নিয়মাবলী</button>
-                <button onclick="switchTab('staff')" class="nav-link px-4 py-2 rounded-lg text-sm transition text-gray-300 hover:text-white hover:bg-gray-800/40" data-tab="staff">স্টাফ লিস্ট</button>
-            </nav>
-
-            <div class="flex items-center space-x-3">
-                <a href="https://discord.gg/yourserver" target="_blank" class="bg-[#5865F2] hover:bg-[#4752C4] text-white p-2.5 rounded-xl transition shadow-lg flex items-center space-x-2 group" title="ডিসকর্ড কমিউনিটিতে যোগ দিন">
-                    <i class="fab fa-discord text-lg group-hover:scale-110 transition"></i>
-                    <span class="text-xs font-bold hidden sm:inline">১৩০০+ মেম্বার</span>
-                </a>
-                <button onclick="switchTab('admin')" class="bg-gray-800 hover:bg-gray-700 p-2.5 rounded-xl text-gray-300 transition border border-gray-700" title="অ্যাডমিন প্যানেল">
-                    <i class="fas fa-lock text-sm"></i>
-                </button>
-            </div>
-        </div>
+<body>
+    <header>
+        <div class="logo">ZENPHONE MC</div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Rules</a></li>
+                <li><a href="#">Vote</a></li>
+                <li><a href="#">Staff</a></li>
+                <li><a href="#">Store</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        <!-- HOME TAB -->
-        <section id="tab-home" class="space-y-8 tab-content">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-800 bg-zen-card min-h-[450px] flex items-center justify-center p-6 md:p-12 glow-effect">
-                <img id="main-banner-img" src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1400&q=80" alt="Zenfunmc Banner" class="absolute inset-0 w-full h-full object-cover opacity-35 filter brightness-90">
-                <div class="absolute inset-0 bg-gradient-to-t from-zen-dark via-zen-dark/40 to-transparent"></div>
-                
-                <div class="relative z-10 text-center space-y-6 max-w-3xl mx-auto">
-                    <div class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/30 px-4 py-1.5 rounded-full text-emerald-400 text-xs font-bold tracking-widest uppercase">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                        <span>সেরা সার্ভাইভাল ও ইকোনমি সার্ভার</span>
-                    </div>
-                    <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white gaming-font">স্বাগতম <span class="text-zen-accent">Zenfunmc</span>-এ</h1>
-                    <p class="text-gray-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">আমাদের কাস্টম র্যাংক, রোমাঞ্চকর ক্রিয়েট এবং সিকিউরড সার্ভারে আপনার মাইনক্রাফট অ্যাডভেঞ্চার শুরু করুন আজই!</p>
-                    
-                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
-                        <button onclick="copyIP()" class="w-full sm:w-auto bg-zen-accent hover:bg-zen-hover text-gray-950 font-extrabold px-8 py-4 rounded-2xl transition shadow-xl shadow-emerald-900/30 flex items-center justify-center space-x-3 group">
-                            <i class="fas fa-server text-lg group-hover:rotate-12 transition"></i>
-                            <span id="ip-text" class="text-base">play.zenfunmc.fun</span>
-                            <span class="text-xs bg-gray-950/20 px-2 py-1 rounded ml-2 font-mono">কপি করুন</span>
-                        </button>
-                        <a href="https://discord.gg/yourserver" target="_blank" class="w-full sm:w-auto bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold px-8 py-4 rounded-2xl transition shadow-lg flex items-center justify-center space-x-2">
-                            <i class="fab fa-discord text-lg"></i>
-                            <span>ডিসকর্ডে যোগ দিন</span>
-                        </a>
-                    </div>
+    <div class="container">
+        <!-- Main Content Area: Announcements -->
+        <main>
+            <div class="card">
+                <div class="announcement-header">
+                    <span class="announcement-title">🔥 Zenphone MC Grand Opening & Event!</span>
+                    <span class="author-tag">Owner</span>
+                </div>
+                <div class="announcement-body">
+                    <p>হ্যালো সবাই! আমাদের নতুন সার্ভার **Zenphone MC** অফিসিয়ালি ওপেন হতে যাচ্ছে এই আগামী রবিবার। আপনাদের জন্য থাকছে চমৎকার গেমপ্লে, কাস্টম লিজেন্ডারি আইটেম এবং বিশাল ইভেন্ট!</p>
+                    <p>সবাই সময়মতো জয়েন করুন এবং আপনাদের বন্ধুদের আমন্ত্রণ জানান। সার্ভার আইপি নিচে দেওয়া হলো:</p>
+                    <div class="ip-box">play.zenphonemc.net</div>
                 </div>
             </div>
+        </main>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-zen-card hover:bg-zen-cardHover border border-gray-800 p-6 rounded-2xl transition shadow-xl space-y-3 group">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-zen-accent text-xl group-hover:scale-110 transition">
-                        <i class="fas fa-bullhorn"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-white">লেটেস্ট আপডেট</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed" id="announcement-1">নতুন সামার আপডেট লাইভ! কাস্টম এনচ্যান্টমেন্ট এবং বস রেইড এখন উপভোগ করুন।</p>
-                </div>
-                <div class="bg-zen-card hover:bg-zen-cardHover border border-gray-800 p-6 rounded-2xl transition shadow-xl space-y-3 group">
-                    <div class="w-12 h-12 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400 text-xl group-hover:scale-110 transition">
-                        <i class="fas fa-gift"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-white">মেগা গিভঅ্যাওয়ে</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed" id="announcement-2">ডিসকর্ডে ১৩০০+ মেম্বার পূর্ণ হওয়ায় বিশাল র্যাংক ও ক্রিয়েট গিভঅ্যাওয়ে চলছে!</p>
-                </div>
-                <div class="bg-zen-card hover:bg-zen-cardHover border border-gray-800 p-6 rounded-2xl transition shadow-xl space-y-3 group">
-                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-zen-purple text-xl group-hover:scale-110 transition">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="font-bold text-lg text-white">স্মুথ পিভিপি</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed" id="announcement-3">ল্যাগ-ফ্রি গেমপ্লে এবং স্ট্রং অ্যান্টি-চিট সিস্টেমের মাধ্যমে সর্বোচ্চ ফেয়ার প্লে নিশ্চিত করা হয়েছে।</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- STORE TAB -->
-        <section id="tab-store" class="space-y-8 tab-content hidden">
-            <div class="text-center space-y-2 max-w-2xl mx-auto">
-                <h2 class="text-3xl font-black text-white">সার্ভার স্টোর</h2>
-                <p class="text-gray-400 text-sm">আপনার ইন-গেম পাওয়ার বাড়াতে প্রিমিয়াম র্যাংক ও মিস্ট্রি ক্রিয়েট সংগ্রহ করুন।</p>
-            </div>
-            <!-- Dynamic Store Products Container -->
-            <div id="store-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Products will load dynamically from Firestore -->
-            </div>
-        </section>
-
-        <!-- VOTE TAB -->
-        <section id="tab-vote" class="space-y-8 tab-content hidden max-w-3xl mx-auto text-center">
-            <div class="space-y-2">
-                <h2 class="text-3xl font-black text-white">সার্ভারে ভোট দিন</h2>
-                <p class="text-gray-400 text-sm">প্রতিটি ভোটে পান আকর্ষণীয় ইন-গেম রিওয়ার্ড এবং ফ্রি ডায়মন্ড ক্রিয়েট কিশ!</p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <a href="#" target="_blank" class="bg-zen-card hover:bg-zen-cardHover border border-gray-800 p-6 rounded-2xl flex items-center justify-between transition shadow-xl group">
-                    <span class="font-bold text-white group-hover:text-zen-accent transition">ভোট লিংক সাইট ১</span>
-                    <i class="fas fa-external-link-alt text-zen-accent"></i>
-                </a>
-                <a href="#" target="_blank" class="bg-zen-card hover:bg-zen-cardHover border border-gray-800 p-6 rounded-2xl flex items-center justify-between transition shadow-xl group">
-                    <span class="font-bold text-white group-hover:text-zen-accent transition">ভোট লিংক সাইট ২</span>
-                    <i class="fas fa-external-link-alt text-zen-accent"></i>
-                </a>
-            </div>
-        </section>
-
-        <!-- LEADERBOARD TAB -->
-        <section id="tab-leaderboard" class="space-y-8 tab-content hidden max-w-4xl mx-auto">
-            <div class="text-center space-y-2">
-                <h2 class="text-3xl font-black text-white">টপ লিডারবোর্ড</h2>
-                <p class="text-gray-400 text-sm">সার্ভারের সেরা প্লেয়ারদের র্যাংকিং তালিকা।</p>
-            </div>
-            <div class="bg-zen-card rounded-3xl border border-gray-800 overflow-hidden shadow-xl">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-gray-900/60 text-gray-400 border-b border-gray-800 text-sm">
-                            <th class="p-4">র্যাংক</th>
-                            <th class="p-4">প্লেয়ার</th>
-                            <th class="p-4">কিলস</th>
-                            <th class="p-4">ব্যালেন্স</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-800 text-gray-300 text-sm">
-                        <tr>
-                            <td class="p-4 font-black text-yellow-400">#১</td>
-                            <td class="p-4 flex items-center space-x-3"><span class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center font-bold text-zen-accent">S</span> <span class="font-bold text-white">ShadowSlayer</span></td>
-                            <td class="p-4">১,৪২০</td>
-                            <td class="p-4 text-zen-accent font-semibold">৫০,০০০ ৳</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-black text-gray-300">#২</td>
-                            <td class="p-4 flex items-center space-x-3"><span class="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center font-bold text-white">B</span> <span class="font-bold text-white">BlockMaster</span></td>
-                            <td class="p-4">১,১৫০</td>
-                            <td class="p-4 text-zen-accent font-semibold">৩৫,০০০ ৳</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-black text-amber-600">#৩</td>
-                            <td class="p-4 flex items-center space-x-3"><span class="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center font-bold text-white">N</span> <span class="font-bold text-white">NinjaPixel</span></td>
-                            <td class="p-4">৯৮০</td>
-                            <td class="p-4 text-zen-accent font-semibold">২২,০০০ ৳</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- RULES TAB -->
-        <section id="tab-rules" class="space-y-6 tab-content hidden max-w-3xl mx-auto">
-            <div class="text-center space-y-2">
-                <h2 class="text-3xl font-black text-white">সার্ভার নিয়মাবলী</h2>
-                <p class="text-gray-400 text-sm">সুন্দর পরিবেশ বজায় রাখতে নিচের নিয়মগুলো মেনে চলুন।</p>
-            </div>
-            <div class="space-y-4">
-                <div class="bg-zen-card p-5 rounded-2xl border border-gray-800 shadow-lg">
-                    <h3 class="font-bold text-white mb-1">১. হ্যাক বা চিটিং নিষিদ্ধ</h3>
-                    <p class="text-sm text-gray-400">যেকোনো থার্ড-পার্টি ক্লায়েন্ট বা হ্যাক ব্যবহার করলে স্থায়ীভাবে ব্যান করা হবে।</p>
-                </div>
-                <div class="bg-zen-card p-5 rounded-2xl border border-gray-800 shadow-lg">
-                    <h3 class="font-bold text-white mb-1">২. টক্সিসিটি বা গালাগালি নিষেধ</h3>
-                    <p class="text-sm text-gray-400">পাবলিক চ্যাটে অন্য প্লেয়ারদের সাথে সম্মানজনক আচরণ করুন।</p>
-                </div>
-                <div class="bg-zen-card p-5 rounded-2xl border border-gray-800 shadow-lg">
-                    <h3 class="font-bold text-white mb-1">৩. গ্রিফিং এবং চুরির শাস্তি</h3>
-                    <p class="text-sm text-gray-400">অসংরক্ষিত এলাকায় গ্রিফিং করা কঠোরভাবে নিষিদ্ধ।</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- STAFF TAB -->
-        <section id="tab-staff" class="space-y-8 tab-content hidden max-w-4xl mx-auto">
-            <div class="text-center space-y-2">
-                <h2 class="text-3xl font-black text-white">আমাদের স্টাফ টিম</h2>
-                <p class="text-gray-400 text-sm">যাঁরা সবসময় সার্ভারটি স্মুথ ও সিকিউর রাখছেন।</p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div class="bg-zen-card p-6 rounded-3xl border border-gray-800 text-center space-y-3 shadow-xl">
-                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Owner" alt="Staff" class="w-20 h-20 mx-auto rounded-2xl bg-gray-900 p-2 border border-red-500/40">
-                    <h3 class="font-bold text-lg text-white">CyberKing</h3>
-                    <span class="inline-block bg-red-500/10 text-red-400 text-xs px-3 py-1 rounded-full font-bold border border-red-500/20">Owner</span>
-                </div>
-                <div class="bg-zen-card p-6 rounded-3xl border border-gray-800 text-center space-y-3 shadow-xl">
-                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Admin" alt="Staff" class="w-20 h-20 mx-auto rounded-2xl bg-gray-900 p-2 border border-purple-500/40">
-                    <h3 class="font-bold text-lg text-white">PixelQueen</h3>
-                    <span class="inline-block bg-purple-500/10 text-purple-400 text-xs px-3 py-1 rounded-full font-bold border border-purple-500/20">Admin</span>
-                </div>
-                <div class="bg-zen-card p-6 rounded-3xl border border-gray-800 text-center space-y-3 shadow-xl">
-                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Mod" alt="Staff" class="w-20 h-20 mx-auto rounded-2xl bg-gray-900 p-2 border border-emerald-500/40">
-                    <h3 class="font-bold text-lg text-white">VortexMod</h3>
-                    <span class="inline-block bg-emerald-500/10 text-emerald-400 text-xs px-3 py-1 rounded-full font-bold border border-emerald-500/20">Moderator</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- ADMIN PANEL TAB -->
-        <section id="tab-admin" class="space-y-8 tab-content hidden max-w-3xl mx-auto">
-            <!-- Login View -->
-            <div id="admin-login-view" class="bg-zen-card p-8 rounded-3xl border border-gray-800 shadow-2xl space-y-6">
-                <div class="text-center space-y-2">
-                    <h2 class="text-2xl font-black text-white">অ্যাডমিন প্যানেল লগইন</h2>
-                    <p class="text-sm text-gray-400">শুধুমাত্র অনুমোদিত স্টাফদের জন্য সংরক্ষিত।</p>
-                </div>
-                <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-1.5">ইমেইল এড্রেস</label>
-                        <input type="email" id="admin-email" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-zen-accent transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-1.5">পাসওয়ার্ড</label>
-                        <input type="password" id="admin-password" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-zen-accent transition">
-                    </div>
-                    <button type="submit" class="w-full bg-zen-accent hover:bg-zen-hover text-gray-950 font-extrabold py-3.5 rounded-xl transition shadow-lg">লগইন করুন</button>
-                </form>
+        <!-- Sidebar / Quick Links -->
+        <aside class="sidebar">
+            <div class="card">
+                <h3>Play Now</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">আমাদের সার্ভারে এখনই যুক্ত হোন:</p>
+                <div class="ip-box">play.zenphonemc.net</div>
             </div>
 
-            <!-- Dashboard View -->
-            <div id="admin-dashboard-view" class="hidden space-y-6">
-                <div class="flex justify-between items-center bg-zen-card p-5 rounded-2xl border border-gray-800">
-                    <h2 class="text-lg font-bold text-white">অ্যাডমিন ড্যাশবোর্ড</h2>
-                    <button onclick="handleLogout()" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-4 py-2 rounded-xl text-xs font-bold transition border border-red-500/20">লগআউট</button>
-                </div>
+            <div class="card">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#">Server Rules</a></li>
+                    <li><a href="#">Vote Rewards</a></li>
+                </ul>
+            </div>
 
-                <!-- Banner Image Upload -->
-                <div class="bg-zen-card p-6 rounded-3xl border border-gray-800 space-y-4">
-                    <h3 class="font-bold text-white">হোম ব্যানার পরিবর্তন করুন</h3>
-                    <input type="file" id="banner-file-input" class="w-full text-gray-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-zen-accent file:text-gray-950 hover:file:bg-zen-hover cursor-pointer">
-                    <button onclick="uploadBanner()" class="bg-zen-accent hover:bg-zen-hover text-gray-950 font-extrabold px-6 py-3 rounded-xl transition">ব্যানার আপলোড ও আপডেট করুন</button>
-                </div>
-
-                <!-- Announcements Edit -->
-                <div class="bg-zen-card p-6 rounded-3xl border border-gray-800 space-y-4">
-                    <h3 class="font-bold text-white">অ্যানাউন্সমেন্ট এডিট করুন</h3>
-                    <div class="space-y-3">
-                        <input type="text" id="edit-ann-1" placeholder="অ্যানাউন্সমেন্ট ১" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm">
-                        <input type="text" id="edit-ann-2" placeholder="অ্যানাউন্সমেন্ট ২" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm">
-                        <input type="text" id="edit-ann-3" placeholder="অ্যানাউন্সমেন্ট ৩" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm">
-                    </div>
-                    <button onclick="saveAnnouncements()" class="bg-zen-accent hover:bg-zen-hover text-gray-950 font-extrabold px-6 py-3 rounded-xl transition">পরিবর্তন সেভ করুন</button>
-                </div>
-
-                <!-- Add Store Item / Rank -->
-                <div class="bg-zen-card p-6 rounded-3xl border border-gray-800 space-y-4">
-                    <h3 class="font-bold text-white">নতুন স্টোর আইটেম বা র‍্যাঙ্ক যোগ করুন</h3>
-                    <div class="space-y-3">
-                        <input type="text" id="prod-name" placeholder="নাম (যেমন: VIP Rank)" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm">
-                        <input type="text" id="prod-price" placeholder="দাম (যেমন: ৫০০ ৳ / মাসিক)" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm">
-                        <input type="text" id="prod-badge" placeholder="ব্যাজ (যেমন: পপুলার - অপশনাল)" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm">
-                        <textarea id="prod-features" placeholder="সুবিধাসমূহ কমা দিয়ে লিখুন (যেমন: /fly কমান্ড, ৩টি কিট, প্রিফিক্স)" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm"></textarea>
-                    </div>
-                    <button onclick="addStoreProduct()" class="bg-zen-accent hover:bg-zen-hover text-gray-950 font-extrabold px-6 py-3 rounded-xl transition">স্টোরে আইটেম যোগ করুন</button>
+            <div class="card">
+                <h3>Store</h3>
+                <div class="store-options">
+                    <a href="#" class="store-btn">Rank Store</a>
+                    <a href="#" class="store-btn">Coins Store</a>
                 </div>
             </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-zen-card border-t border-gray-800 mt-16 py-6 text-center text-xs text-gray-400">
-        <p>&copy; ২০২৬ Zenfunmc সার্ভার। সর্বস্বত্ব সংরক্ষিত।</p>
-    </footer>
-
-    <!-- Firebase Integration Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-storage.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyA3n_6sMMVKdpiwL1Xpoca4ZCAO-QiJOHQ",
-            authDomain: "zenfunmc-207d8.firebaseapp.com",
-            projectId: "zenfunmc-207d8",
-            storageBucket: "zenfunmc-207d8.firebasestorage.app",
-            messagingSenderId: "969595949743",
-            appId: "1:969595949743:web:896a36e4227ebf2c1d7a5a",
-            measurementId: "G-2VTT3B8V78"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const storage = getStorage(app);
-
-        window.switchTab = function(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-            
-            document.querySelectorAll('.nav-link').forEach(el => {
-                el.classList.remove('text-zen-accent', 'bg-gray-800/85', 'shadow');
-                el.classList.add('text-gray-300');
-            });
-            const activeNav = document.querySelector(`[data-tab="${tabId}"]`);
-            if(activeNav) {
-                activeNav.classList.remove('text-gray-300');
-                activeNav.classList.add('text-zen-accent', 'bg-gray-800/85', 'shadow');
-            }
-        }
-
-        window.copyIP = function() {
-            navigator.clipboard.writeText("play.zenfunmc.fun");
-            alert("সার্ভার আইপি সফলভাবে কপি করা হয়েছে: play.zenfunmc.fun");
-        }
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                document.getElementById('admin-login-view').classList.add('hidden');
-                document.getElementById('admin-dashboard-view').classList.remove('hidden');
-            } else {
-                document.getElementById('admin-login-view').classList.remove('hidden');
-                document.getElementById('admin-dashboard-view').classList.add('hidden');
-            }
-        });
-
-        window.handleLogin = async function(e) {
-            e.preventDefault();
-            const email = document.getElementById('admin-email').value;
-            const password = document.getElementById('admin-password').value;
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                alert("সফলভাবে অ্যাডমিন প্যানেলে লগইন হয়েছে!");
-            } catch (error) {
-                alert("লগইন ব্যর্থ হয়েছে: " + error.message);
-            }
-        }
-
-        window.handleLogout = async function() {
-            await signOut(auth);
-            alert("লগআউট করা হয়েছে।");
-        }
-
-        async function loadDynamicContent() {
-            try {
-                const docRef = doc(db, "siteContent", "main");
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    if(data.bannerUrl) {
-                        document.getElementById('main-banner-img').src = data.bannerUrl;
-                    }
-                    if(data.ann1) {
-                        document.getElementById('announcement-1').innerText = data.ann1;
-                        document.getElementById('edit-ann-1').value = data.ann1;
-                    }
-                    if(data.ann2) {
-                        document.getElementById('announcement-2').innerText = data.ann2;
-                        document.getElementById('edit-ann-2').value = data.ann2;
-                    }
-                    if(data.ann3) {
-                        document.getElementById('announcement-3').innerText = data.ann3;
-                        document.getElementById('edit-ann-3').value = data.ann3;
-                    }
-                }
-            } catch (err) {
-                console.error("ডেটা লোড করতে সমস্যা হয়েছে:", err);
-            }
-        }
-
-        async function loadStoreItems() {
-            try {
-                const querySnapshot = await getDocs(collection(db, "products"));
-                const storeContainer = document.getElementById('store-container');
-                storeContainer.innerHTML = '';
-                
-                if (querySnapshot.empty) {
-                    storeContainer.innerHTML = '<p class="text-gray-400 text-center col-span-3 py-8">স্টোরে বর্তমানে কোনো আইটেম নেই। অ্যাডমিন প্যানেল থেকে আইটেম যোগ করুন।</p>';
-                    return;
-                }
-
-                querySnapshot.forEach((docSnap) => {
-                    const item = docSnap.data();
-                    const featuresHtml = item.features ? item.features.split(',').map(f => `<li class="flex items-center"><i class="fas fa-check text-zen-accent mr-3"></i> ${f.trim()}</li>`).join('') : '';
-                    
-                    storeContainer.innerHTML += `
-                        <div class="bg-zen-card rounded-3xl border border-gray-800 p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group hover:border-emerald-500/50 transition">
-                            ${item.badge ? `<div class="absolute top-0 right-0 bg-zen-accent text-gray-950 text-xs font-black px-4 py-1.5 rounded-bl-2xl">${item.badge}</div>` : ''}
-                            <div class="space-y-6">
-                                <h3 class="text-2xl font-black text-white">${item.name}</h3>
-                                <p class="text-4xl font-black text-zen-accent">${item.price}</p>
-                                <ul class="space-y-3 text-sm text-gray-300">
-                                    ${featuresHtml}
-                                </ul>
-                            </div>
-                            <button onclick="alert('পেমেন্ট সিস্টেম শীঘ্রই চালু হবে!')" class="mt-8 w-full bg-zen-accent hover:bg-zen-hover text-gray-950 font-bold py-3.5 rounded-xl transition shadow-lg">এখনই কিনুন</button>
-                        </div>
-                    `;
-                });
-            } catch (err) {
-                console.error("স্টোর আইটেম লোড করতে সমস্যা:", err);
-            }
-        }
-
-        window.saveAnnouncements = async function() {
-            const ann1 = document.getElementById('edit-ann-1').value;
-            const ann2 = document.getElementById('edit-ann-2').value;
-            const ann3 = document.getElementById('edit-ann-3').value;
-            try {
-                await setDoc(doc(db, "siteContent", "main"), { ann1, ann2, ann3 }, { merge: true });
-                alert("অ্যানাউন্সমেন্ট সফলভাবে আপডেট করা হয়েছে!");
-                loadDynamicContent();
-            } catch (err) {
-                alert("সেভ করতে সমস্যা হয়েছে: " + err.message);
-            }
-        }
-
-        window.uploadBanner = async function() {
-            const fileInput = document.getElementById('banner-file-input');
-            if(fileInput.files.length === 0) {
-                alert("দয়া করে একটি ছবি সিলেক্ট করুন!");
-                return;
-            }
-            const file = fileInput.files[0];
-            const storageRef = ref(storage, 'banners/main-banner.jpg');
-            try {
-                alert("ব্যানার আপলোড হচ্ছে, দয়া করে অপেক্ষা করুন...");
-                await uploadBytes(storageRef, file);
-                const downloadURL = await getDownloadURL(storageRef);
-                await setDoc(doc(db, "siteContent", "main"), { bannerUrl: downloadURL }, { merge: true });
-                alert("ব্যানার সফলভাবে আপডেট ও সেভ করা হয়েছে!");
-                loadDynamicContent();
-            } catch (err) {
-                alert("ব্যানার আপলোড ব্যর্থ হয়েছে: " + err.message);
-            }
-        }
-
-        window.addStoreProduct = async function() {
-            const name = document.getElementById('prod-name').value;
-            const price = document.getElementById('prod-price').value;
-            const badge = document.getElementById('prod-badge').value;
-            const features = document.getElementById('prod-features').value;
-
-            if(!name || !price) {
-                alert("দয়া করে র‍্যাঙ্কের নাম এবং দাম দিন!");
-                return;
-            }
-
-            try {
-                await addDoc(collection(db, "products"), { name, price, badge, features });
-                alert("নতুন আইটেম সফলভাবে স্টোরে যোগ করা হয়েছে!");
-                document.getElementById('prod-name').value = '';
-                document.getElementById('prod-price').value = '';
-                document.getElementById('prod-badge').value = '';
-                document.getElementById('prod-features').value = '';
-                loadStoreItems();
-            } catch (err) {
-                alert("আইটেম যোগ করতে সমস্যা হয়েছে: " + err.message);
-            }
-        }
-
-        loadDynamicContent();
-        loadStoreItems();
-    </script>
+        </aside>
+    </div>
 </body>
 </html>
