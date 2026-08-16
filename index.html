@@ -18,7 +18,7 @@
             overflow-x: hidden;
         }
 
-        /* Top Header with Menu Button */
+        /* Top Header */
         .top-header {
             position: fixed;
             top: 0;
@@ -51,7 +51,7 @@
             font-size: 20px;
         }
 
-        /* Sidebar Styling (Hidden by default) */
+        /* Sidebar Styling */
         .sidebar {
             position: fixed;
             top: 0;
@@ -112,6 +112,7 @@
             padding: 10px 15px;
             border-radius: 6px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .sidebar ul li a:hover, .sidebar ul li a.active {
@@ -126,7 +127,7 @@
             margin: 15px 0;
         }
 
-        /* Overlay background when sidebar is open */
+        /* Overlay */
         .overlay {
             position: fixed;
             top: 0;
@@ -167,12 +168,17 @@
             letter-spacing: 2px;
         }
 
-        /* Content Container */
-        .content-container {
+        /* Page Sections */
+        .page-section {
+            display: none;
             padding: 40px 20px;
             max-width: 900px;
             margin: 0 auto;
             width: 100%;
+        }
+
+        .page-section.active-page {
+            display: block;
         }
 
         .card {
@@ -223,6 +229,47 @@
             background-color: #e02e2e;
         }
 
+        /* Vote Buttons Grid */
+        .vote-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .vote-btn {
+            background-color: #ff3333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .vote-btn:hover {
+            background-color: #e02e2e;
+        }
+
+        /* Staff Grid */
+        .staff-role {
+            color: #ff3333;
+            font-size: 18px;
+            margin: 20px 0 10px 0;
+            border-bottom: 1px solid #262626;
+            padding-bottom: 5px;
+        }
+
+        .staff-member {
+            background-color: #121212;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            color: #fff;
+            border: 1px solid #262626;
+        }
+
         /* Footer */
         footer {
             background-color: #0d0d0d;
@@ -241,7 +288,7 @@
 </head>
 <body>
 
-    <!-- টপ হেডার (যেখানে মেনু বাটন থাকবে) -->
+    <!-- টপ হেডার -->
     <header class="top-header">
         <button class="menu-btn" id="menuToggle">
             <span>≡ Menu</span>
@@ -249,23 +296,23 @@
         <div class="logo-text">AppleMC</div>
     </header>
 
-    <!-- ওভারলে (সাইডবার খুললে পেছনের স্ক্রিন অন্ধকার করার জন্য) -->
+    <!-- ওভারলে -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- সাইডবার মেনু (যা ক্লিক করলে ওপেন হবে) -->
+    <!-- সাইডবার মেনু -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2>AppleMC</h2>
             <button class="close-btn" id="closeSidebar">&times;</button>
         </div>
         <ul>
-            <li><a href="#" class="active">Home</a></li>
-            <li><a href="#">Rules</a></li>
-            <li><a href="#">Vote</a></li>
-            <li><a href="#">Discord</a></li>
-            <li><a href="#">Store</a></li>
-            <li><a href="#">Staff</a></li>
-            <li><a href="#">Apply</a></li>
+            <li><a class="nav-link active" data-target="home-page">Home</a></li>
+            <li><a class="nav-link" data-target="rules-page">Rules</a></li>
+            <li><a class="nav-link" data-target="vote-page">Vote</a></li>
+            <li><a href="https://discord.com" target="_blank">Discord</a></li>
+            <li><a class="nav-link" data-target="store-page">Store</a></li>
+            <li><a class="nav-link" data-target="staff-page">Staff</a></li>
+            <li><a class="nav-link" data-target="apply-page">Apply</a></li>
         </ul>
         <hr class="sidebar-divider">
         <ul>
@@ -283,8 +330,8 @@
             </div>
         </div>
 
-        <!-- পোস্ট এবং আপডেট সেকশন -->
-        <div class="content-container">
+        <!-- ১. HOME PAGE -->
+        <div id="home-page" class="page-section active-page">
             <div class="card">
                 <h3>🍎🍉 APPLE & MELON END OPENING + CASH PRIZE</h3>
                 <p>🔥 Hello everyone! We are opening The End on Apple & Melon realms this Sunday! Make sure to join and participate to win amazing rewards.</p>
@@ -295,6 +342,72 @@
             </div>
         </div>
 
+        <!-- ২. RULES PAGE -->
+        <div id="rules-page" class="page-section">
+            <div class="card">
+                <h3>AppleMC Official Rules</h3>
+                <p>Welcome to the official rules page for AppleMC. Here you will find our network-wide guidelines. Should you fail to abide by these rules, you may lose the ability to participate in our community.</p>
+                <p>1. No hacking, cheating, or using unfair modifications.<br>2. Respect all players and staff members.<br>3. No spamming or advertising in chat.</p>
+            </div>
+        </div>
+
+        <!-- ৩. VOTE PAGE -->
+        <div id="vote-page" class="page-section">
+            <div class="card">
+                <h3>Vote for AppleMC!</h3>
+                <p>You can receive up to 5 VOTE KEYS by voting for our server on different platforms!</p>
+                <div class="vote-grid">
+                    <a href="#" class="vote-btn">VOTE #1 ↗</a>
+                    <a href="#" class="vote-btn">VOTE #2 ↗</a>
+                    <a href="#" class="vote-btn">VOTE #3 ↗</a>
+                    <a href="#" class="vote-btn">VOTE #4 ↗</a>
+                    <a href="#" class="vote-btn">VOTE #5 ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ৪. STORE PAGE -->
+        <div id="store-page" class="page-section">
+            <div class="card">
+                <h3>AppleMC Store</h3>
+                <p>Welcome to the store! Purchase ranks, crate keys, coins, and more to support the server.</p>
+                <div class="vote-grid">
+                    <a href="#" class="vote-btn">💎 Apple+ Rank</a>
+                    <a href="#" class="vote-btn">💰 9,750 Coins</a>
+                    <a href="#" class="vote-btn">🍌 Banana Realm</a>
+                    <a href="#" class="vote-btn">🍎 Apple Realm</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ৫. STAFF PAGE -->
+        <div id="staff-page" class="page-section">
+            <div class="card">
+                <h3>Staff Team</h3>
+                <div class="staff-role">Owner</div>
+                <div class="staff-member">AmanWastaken</div>
+                <div class="staff-member">Atics</div>
+                
+                <div class="staff-role">Manager</div>
+                <div class="staff-member">Noxillio</div>
+                <div class="staff-member">Ayzdon</div>
+
+                <div class="staff-role">Developer</div>
+                <div class="staff-member">goosBanny</div>
+            </div>
+        </div>
+
+        <!-- ৬. APPLY PAGE -->
+        <div id="apply-page" class="page-section">
+            <div class="card">
+                <h3>Welcome to the official recruitment hub!</h3>
+                <p>We are looking for worthy individuals who are eager to contribute to our network.</p>
+                <p><strong>Staff Applications:</strong> <span style="color: #ff3333;">CLOSED</span></p>
+                <p><strong>Media Applications:</strong> <span style="color: #4CAF50;">OPEN</span></p>
+                <a href="#" class="btn" style="margin-top: 15px;">Start Application</a>
+            </div>
+        </div>
+
         <!-- ফুটার -->
         <footer>
             <p>AppleMC © 2026. All rights reserved.</p>
@@ -302,12 +415,14 @@
         </footer>
     </div>
 
-    <!-- জাভাস্ক্রিপ্ট কোড সাইডবার কন্ট্রোল করার জন্য -->
+    <!-- জাভাস্ক্রিপ্ট -->
     <script>
         const menuToggle = document.getElementById('menuToggle');
         const sidebar = document.getElementById('sidebar');
         const closeSidebar = document.getElementById('closeSidebar');
         const overlay = document.getElementById('overlay');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pageSections = document.querySelectorAll('.page-section');
 
         function toggleMenu() {
             sidebar.classList.toggle('open');
@@ -317,6 +432,29 @@
         menuToggle.addEventListener('click', toggleMenu);
         closeSidebar.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
+
+        // পেজ পরিবর্তনের জন্য ফাংশন
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+
+                // সব সেকশন থেকে active-page ক্লাস রিমুভ করা
+                pageSections.forEach(section => {
+                    section.classList.remove('active-page');
+                });
+
+                // টার্গেট পেজটি দেখানো
+                document.getElementById(targetId).classList.add('active-page');
+
+                // সাইডবারের একটিভ ক্লাস পরিবর্তন
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+
+                // মোবাইল ভিউতে মেনুতে ক্লিক করলে সাইডবার বন্ধ হয়ে যাবে
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            });
+        });
     </script>
 
 </body>
