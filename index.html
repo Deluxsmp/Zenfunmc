@@ -1,215 +1,204 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenphone MC | Official Server</title>
+    <title>AppleMC - Minecraft Server</title>
     <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: #141b2d;
-            --accent-color: #00f3ff;
-            --accent-hover: #00bcd4;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --border-color: #1e293b;
-        }
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-        header {
-            background: #080c14;
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem 2rem;
+            background-color: #121212;
+            color: #ffffff;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            min-height: 100vh;
         }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent-color);
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 260px;
+            background-color: #1a1a1a;
+            border-right: 1px solid #262626;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 {
+            color: #ff3333;
+            margin-bottom: 30px;
+            font-size: 22px;
             letter-spacing: 1px;
         }
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 1.5rem;
-        }
-        nav a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        nav a:hover, nav a.active {
-            color: var(--accent-color);
-        }
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            nav ul {
-                display: none;
-            }
-        }
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .announcement-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.75rem;
-        }
-        .announcement-title {
-            font-size: 1.25rem;
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-        .author-tag {
-            background: rgba(0, 243, 255, 0.1);
-            color: var(--accent-color);
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        .announcement-body p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-        .sidebar .card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            border-left: 3px solid var(--accent-color);
-            padding-left: 0.5rem;
-        }
+
         .sidebar ul {
             list-style: none;
         }
+
         .sidebar ul li {
-            margin-bottom: 0.75rem;
+            margin-bottom: 10px;
         }
+
         .sidebar ul li a {
-            color: var(--text-muted);
+            color: #b0b0b0;
             text-decoration: none;
-            transition: color 0.2s;
+            font-size: 15px;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
         }
-        .sidebar ul li a:hover {
-            color: var(--accent-color);
+
+        .sidebar ul li a:hover, .sidebar ul li a.active {
+            color: #ffffff;
+            background-color: #ff3333;
         }
-        .store-options {
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            overflow-y: auto;
         }
-        .store-btn {
-            background: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 0.75rem;
-            border-radius: 4px;
-            text-align: center;
+
+        /* Hero Banner */
+        .hero-banner {
+            height: 280px;
+            background: linear-gradient(rgba(18, 18, 18, 0.4), rgba(18, 18, 18, 0.9)), url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1200&auto=format&fit=crop') center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid #262626;
+        }
+
+        .hero-logo h1 {
+            color: #ff3333;
+            font-size: 42px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            letter-spacing: 2px;
+        }
+
+        /* Content Container */
+        .content-container {
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .card {
+            background-color: #181818;
+            border: 1px solid #262626;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .card h3 {
+            color: #ff3333;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .card p {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .server-ip {
+            background-color: #121212;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #262626;
+            font-size: 14px;
+            color: #999999;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ff3333;
+            color: white;
+            padding: 10px 22px;
             text-decoration: none;
-            font-weight: bold;
-            transition: background 0.3s, color 0.3s;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
         }
-        .store-btn:hover {
-            background: var(--accent-color);
-            color: var(--bg-color);
+
+        .btn:hover {
+            background-color: #e02e2e;
         }
-        .ip-box {
-            background: rgba(0,0,0,0.2);
-            padding: 0.75rem;
-            border-radius: 4px;
-            font-family: monospace;
-            color: var(--accent-color);
+
+        /* Footer */
+        footer {
+            background-color: #0d0d0d;
+            padding: 30px;
             text-align: center;
-            margin-top: 0.5rem;
-            border: 1px dashed var(--accent-color);
+            border-top: 1px solid #262626;
+            color: #666666;
+            font-size: 13px;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">ZENPHONE MC</div>
-        <nav>
-            <ul>
-                <li><a href="#" class="active">Home</a></li>
-                <li><a href="#">Rules</a></li>
-                <li><a href="#">Vote</a></li>
-                <li><a href="#">Staff</a></li>
-                <li><a href="#">Store</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <div class="container">
-        <!-- Main Content Area: Announcements -->
-        <main>
-            <div class="card">
-                <div class="announcement-header">
-                    <span class="announcement-title">🔥 Zenphone MC Grand Opening & Event!</span>
-                    <span class="author-tag">Owner</span>
-                </div>
-                <div class="announcement-body">
-                    <p>হ্যালো সবাই! আমাদের নতুন সার্ভার **Zenphone MC** অফিসিয়ালি ওপেন হতে যাচ্ছে এই আগামী রবিবার। আপনাদের জন্য থাকছে চমৎকার গেমপ্লে, কাস্টম লিজেন্ডারি আইটেম এবং বিশাল ইভেন্ট!</p>
-                    <p>সবাই সময়মতো জয়েন করুন এবং আপনাদের বন্ধুদের আমন্ত্রণ জানান। সার্ভার আইপি নিচে দেওয়া হলো:</p>
-                    <div class="ip-box">play.zenphonemc.net</div>
-                </div>
-            </div>
-        </main>
-
-        <!-- Sidebar / Quick Links -->
-        <aside class="sidebar">
-            <div class="card">
-                <h3>Play Now</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">আমাদের সার্ভারে এখনই যুক্ত হোন:</p>
-                <div class="ip-box">play.zenphonemc.net</div>
-            </div>
-
-            <div class="card">
-                <h3>Links</h3>
-                <ul>
-                    <li><a href="#">Server Rules</a></li>
-                    <li><a href="#">Vote Rewards</a></li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>Store</h3>
-                <div class="store-options">
-                    <a href="#" class="store-btn">Rank Store</a>
-                    <a href="#" class="store-btn">Coins Store</a>
-                </div>
-            </div>
-        </aside>
+    <!-- সাইডবার মেনু -->
+    <div class="sidebar">
+        <h2>AppleMC</h2>
+        <ul>
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Rules</a></li>
+            <li><a href="#">Vote</a></li>
+            <li><a href="#">Map</a></li>
+            <li><a href="#">Store</a></li>
+            <li><a href="#">Staff</a></li>
+            <li><a href="#">Apply</a></li>
+        </ul>
     </div>
+
+    <!-- মূল কন্টেন্ট অংশ -->
+    <div class="main-content">
+        <!-- ব্যানার ইমেজ -->
+        <div class="hero-banner">
+            <div class="hero-logo">
+                <h1>AppleMC</h1>
+            </div>
+        </div>
+
+        <!-- পোস্ট এবং আপডেট সেকশন -->
+        <div class="content-container">
+            <div class="card">
+                <h3>🍎🍉 APPLE & MELON END OPENING + CASH PRIZE</h3>
+                <p>🔥 Hello everyone! We are opening The End on Apple & Melon realms this Sunday! Make sure to join and participate to win amazing rewards.</p>
+                <div class="server-ip">IP: play.applemc.fun | Bedrock Port: 19132</div>
+                <div>
+                    <a href="#" class="btn">Read Full Post</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ফুটার -->
+        <footer>
+            <p>AppleMC © 2026. All rights reserved.</p>
+            <p>Not affiliated with Mojang or Microsoft.</p>
+        </footer>
+    </div>
+
 </body>
 </html>
